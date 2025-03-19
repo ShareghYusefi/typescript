@@ -31,3 +31,42 @@ var z = 10;
 // "let" is preferred over "var" as best practice to avoid scoping issues.
 var w = 50;
 console.log(w);
+// Data types in Typescript
+// We can define a variables data type using a colon.
+// Built-in data types
+// number, string, boolean, void, null, undefined
+var customMessage = "Hello World!";
+var num = 10;
+var isValid = true;
+var nullValue = null;
+var undefinedValue = undefined;
+// void is used to define a functions return type of void
+function greet() {
+    console.log("Hello World!");
+    return; // does not return anything (void)
+}
+// "Any" data type
+var anyValue = 10;
+anyValue = "Hello";
+// Type operators
+console.log(typeof num);
+console.log(typeof customMessage);
+console.log(typeof isValid);
+// User-define data types
+// Arrays, tuples, classes and interfaces
+// Arrays
+var numbers = [1, 2, 3, 4, 5];
+var names = ["John", "Doe", "Jane"];
+// Tuples: when we jave a known number of elements with different data types within an array.
+var person = ["John", 25, true];
+// classes
+var Person = /** @class */ (function () {
+    function Person(nameArg, ageArg, isStudentArg) {
+        this.name = nameArg;
+        this.age = ageArg;
+        this.isStudent = isStudentArg;
+    }
+    return Person;
+}());
+var person1 = new Person("John", 25, true);
+console.log(person1);

@@ -1,6 +1,21 @@
 // What is a Single Page Application?
 // An application with one HTML page, updated dynamically without refreshing the page.
 // Angular, Vue, React JS are all SPA frameworks.
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // What is typescript?
 // Typescript is a superset of Javascript, used to build large applications with data types.
 // Typescript is transpiled to Javascript.
@@ -66,7 +81,38 @@ var Person = /** @class */ (function () {
         this.age = ageArg;
         this.isStudent = isStudentArg;
     }
+    Person.prototype.greet = function () {
+        console.log("Hello my name is " + this.name);
+    };
     return Person;
 }());
+// instantiating a class = creating an object instance of the class definition
 var person1 = new Person("John", 25, true);
 console.log(person1);
+person1.greet();
+// What is inheritance?
+// When a class inherits properties and methods from a parent class
+// Parent class of mammal
+var Mammal = /** @class */ (function () {
+    function Mammal(hasHairArg, isWarmBloodedArg) {
+        this.hasHair = hasHairArg;
+        this.isWarmBlooded = isWarmBloodedArg;
+    }
+    Mammal.prototype.eat = function () {
+        console.log("Mammal is eating.");
+    };
+    return Mammal;
+}());
+// Animal child class inheriting from mammal using "extends" keyword
+var Animal = /** @class */ (function (_super) {
+    __extends(Animal, _super);
+    function Animal(nameArg, ageArg, hasHairArg, isWarmBloodedArg) {
+        // We can use "super" keyword to call the parent class constructor
+        var _this = _super.call(this, hasHairArg, isWarmBloodedArg) || this;
+        _this.name = nameArg;
+        _this.age = ageArg;
+        return _this;
+    }
+    return Animal;
+}(Mammal));
+var cat = new Animal("Cat", 2, true, true);

@@ -195,3 +195,11 @@ let bird: IAnimal = {
 let dog = new Animal("Dog", 2, true, true);
 
 console.log(dog.sleep());
+
+// Type Assertion
+// Type assertion is used to tell the typescript compiler the type of a variable. 
+
+let message = "Hello World!"
+// message variable is a string
+let messageLength = (<string>message).length;
+let alternateMessageLength = (message as string).length;

@@ -88,12 +88,21 @@ class Person {
   // public: accessible within and outside of current class
   public age: number;
   // private: accessible only within the current class
-  private isStudent: boolean;
+  private _isStudent: boolean;
 
   constructor(nameArg: string, ageArg: number, isStudentArg: boolean) {
     this.name = nameArg;
     this.age = ageArg;
-    this.isStudent = isStudentArg;
+    this._isStudent = isStudentArg;
+  }
+
+  // getter and setter methods are used for private properties
+  get isStudent(): boolean {
+    return this._isStudent;
+  }
+
+  set isStudent(value: boolean) {
+    this._isStudent = value;
   }
 
   greet(): void {
@@ -103,6 +112,11 @@ class Person {
 
 // instantiating a class = creating an object instance of the class definition
 let person1 = new Person("John", 25, true);
+// this calls the getter method
+console.log("getter " + person1.isStudent);
+// this calls the setter method
+console.log("setter " + (person1.isStudent = true));
+
 console.log(person1);
 person1.greet();
 
@@ -197,9 +211,9 @@ let dog = new Animal("Dog", 2, true, true);
 console.log(dog.sleep());
 
 // Type Assertion
-// Type assertion is used to tell the typescript compiler the type of a variable. 
+// Type assertion is used to tell the typescript compiler the type of a variable.
 
-let message = "Hello World!"
+let message = "Hello World!";
 // message variable is a string
 let messageLength = (<string>message).length;
 let alternateMessageLength = (message as string).length;

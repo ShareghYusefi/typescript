@@ -79,8 +79,19 @@ var Person = /** @class */ (function () {
     function Person(nameArg, ageArg, isStudentArg) {
         this.name = nameArg;
         this.age = ageArg;
-        this.isStudent = isStudentArg;
+        this._isStudent = isStudentArg;
     }
+    Object.defineProperty(Person.prototype, "isStudent", {
+        // getter and setter methods are used for private properties
+        get: function () {
+            return this._isStudent;
+        },
+        set: function (value) {
+            this._isStudent = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Person.prototype.greet = function () {
         console.log("Hello my name is " + this.name);
     };
@@ -88,6 +99,10 @@ var Person = /** @class */ (function () {
 }());
 // instantiating a class = creating an object instance of the class definition
 var person1 = new Person("John", 25, true);
+// this calls the getter method
+console.log("getter " + person1.isStudent);
+// this calls the setter method
+console.log("setter " + (person1.isStudent = true));
 console.log(person1);
 person1.greet();
 // What is inheritance?
@@ -150,7 +165,7 @@ var bird = {
 var dog = new Animal("Dog", 2, true, true);
 console.log(dog.sleep());
 // Type Assertion
-// Type assertion is used to tell the typescript compiler the type of a variable. 
+// Type assertion is used to tell the typescript compiler the type of a variable.
 var message = "Hello World!";
 // message variable is a string
 var messageLength = message.length;

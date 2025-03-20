@@ -99,11 +99,16 @@ var Mammal = /** @class */ (function () {
         this.isWarmBlooded = isWarmBloodedArg;
     }
     Mammal.prototype.eat = function () {
-        console.log("Mammal is eating.");
+        return "Mammal is eating.";
+    };
+    // protected: accessible within current class and child classes
+    Mammal.prototype.canWalk = function () {
+        return "Mammal is walking";
     };
     return Mammal;
 }());
 // Animal child class inheriting from mammal using "extends" keyword
+// We can use "implemments" keyword to ensure Animal class abides by the IAnimal contract
 var Animal = /** @class */ (function (_super) {
     __extends(Animal, _super);
     function Animal(nameArg, ageArg, hasHairArg, isWarmBloodedArg) {
@@ -113,6 +118,34 @@ var Animal = /** @class */ (function (_super) {
         _this.age = ageArg;
         return _this;
     }
+    // can override inherited functions
+    Animal.prototype.eat = function () {
+        return "".concat(this.name, " is eating");
+    };
+    Animal.prototype.sleep = function () {
+        return "".concat(this.name, " is sleeping");
+    };
+    // accessing a protected parent method in child class
+    Animal.prototype.busy = function () {
+        return this.canWalk();
+    };
     return Animal;
 }(Mammal));
 var cat = new Animal("Cat", 2, true, true);
+console.log(cat.eat());
+// Using an interface with Objects
+var bird = {
+    name: "Bird",
+    age: 2,
+    hasHair: true,
+    isWarmBlooded: true,
+    eat: function () {
+        return "Bird is eating";
+    },
+    sleep: function () {
+        return "Bird is sleeping";
+    },
+};
+// Implementing an interface with a Class
+var dog = new Animal("Dog", 2, true, true);
+console.log(dog.sleep());

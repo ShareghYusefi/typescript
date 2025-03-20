@@ -81,9 +81,14 @@ let person: [string, number, boolean] = ["John", 25, true];
 
 // classes
 class Person {
+  // What are access modifier?
+  // These are the keywords "public", "private", "protected"
+  // They control access to properties and methods when working with an object instance
   name: string;
-  age: number;
-  isStudent: boolean;
+  // public: accessible within and outside of current class
+  public age: number;
+  // private: accessible only within the current class
+  private isStudent: boolean;
 
   constructor(nameArg: string, ageArg: number, isStudentArg: boolean) {
     this.name = nameArg;
@@ -106,7 +111,6 @@ person1.greet();
 
 // Parent class of mammal
 class Mammal {
-  // properties
   hasHair: boolean;
   isWarmBlooded: boolean;
 
@@ -115,14 +119,18 @@ class Mammal {
     this.isWarmBlooded = isWarmBloodedArg;
   }
 
-  eat(): void {
-    console.log("Mammal is eating.");
+  eat(): string {
+    return "Mammal is eating.";
+  }
+  // protected: accessible within current class and child classes
+  protected canWalk(): string {
+    return `Mammal is walking`;
   }
 }
 
 // Animal child class inheriting from mammal using "extends" keyword
-class Animal extends Mammal {
-  // properties
+// We can use "implemments" keyword to ensure Animal class abides by the IAnimal contract
+class Animal extends Mammal implements IAnimal {
   name: string;
   age: number;
 
@@ -137,6 +145,53 @@ class Animal extends Mammal {
     this.name = nameArg;
     this.age = ageArg;
   }
+  // can override inherited functions
+  eat(): string {
+    return `${this.name} is eating`;
+  }
+
+  sleep(): string {
+    return `${this.name} is sleeping`;
+  }
+
+  // accessing a protected parent method in child class
+  busy(): string {
+    return this.canWalk();
+  }
 }
 
 let cat = new Animal("Cat", 2, true, true);
+console.log(cat.eat());
+
+// What is an Interface?
+// An interface can be used to create custom data types, we can define the structure for an object.
+// An interface defines a contract for an object, specifying the properties and methods it must have.
+
+// Interface for a Animal object
+interface IAnimal {
+  name: string;
+  age: number;
+  hasHair: boolean;
+  isWarmBlooded: boolean;
+  eat(): string;
+  sleep(): string;
+}
+
+// Using an interface with Objects
+let bird: IAnimal = {
+  name: "Bird",
+  age: 2,
+  hasHair: true,
+  isWarmBlooded: true,
+  eat() {
+    return "Bird is eating";
+  },
+  sleep() {
+    return "Bird is sleeping";
+  },
+};
+
+// Implementing an interface with a Class
+let dog = new Animal("Dog", 2, true, true);
+
+console.log(dog.sleep());
